@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event-Driven Architecture - Michael Bruno</title>
+    <style>
+        .header {
+            background: white;
+            border-bottom: 2px solid #0066cc;
+            padding: 20px 0;
+            margin-bottom: 0;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .site-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav a {
+            color: #555;
+            text-decoration: none;
+            font-size: 0.95rem;
+            padding: 8px 0;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .nav a:hover,
+        .nav a.active {
+            color: #0066cc;
+            border-bottom-color: #0066cc;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border: 1px solid #ddd;
+        }
+
+        .header {
+            padding: 30px;
+            border-bottom: 2px solid #0066cc;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .header p {
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 35px;
+        }
+
+        .section h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .section h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #333;
+            margin: 20px 0 10px 0;
+        }
+
+        .section p {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .diagram-container {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .diagram-container img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .diagram-placeholder {
+            background: #e9ecef;
+            padding: 60px 20px;
+            color: #666;
+            font-style: italic;
+        }
+
+        .tech-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .tech-item {
+            background: #f8f9fa;
+            padding: 12px;
+            border-left: 3px solid #0066cc;
+        }
+
+        .tech-item strong {
+            display: block;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+
+        .tech-item span {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .decision-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .decision-table th {
+            background: #f8f9fa;
+            padding: 12px;
+            text-align: left;
+            border-bottom: 2px solid #ddd;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .decision-table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .decision-table td:first-child {
+            font-weight: 500;
+            color: #333;
+        }
+
+        ul {
+            margin: 10px 0 10px 20px;
+        }
+
+        ul li {
+            margin-bottom: 6px;
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        .highlight-box {
+            background: #f0f7ff;
+            border-left: 3px solid #0066cc;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .highlight-box strong {
+            color: #0066cc;
+        }
+
+        .code-block {
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        .links-section {
+            background: #fafafa;
+            border-top: 1px solid #ddd;
+            padding: 30px;
+        }
+
+        .links-section h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 15px;
+        }
+
+        .link-item {
+            display: inline-block;
+            margin-right: 15px;
+            margin-bottom: 10px;
+        }
+
+        .link-item a {
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .link-item a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            border-top: 1px solid #ddd;
+            padding: 20px 30px;
+            text-align: center;
+        }
+
+        .footer p {
+            font-size: 0.85rem;
+            color: #666;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .tech-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="site-title">Michael Bruno</div>
+            <nav class="nav">
+                <a href="index.html">Home</a>
+                <a href="projects.html">Projects</a>
+                <a href="about.html">About</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="header">
+            <h1>Event-Driven Architecture Demo</h1>
+            <div class="subtitle">Order Processing with Azure Functions and Storage Queues</div>
+            <p>A working implementation demonstrating serverless event-driven patterns using Azure cloud services with Infrastructure as Code deployment.</p>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <h2>Project Overview</h2>
+                <p>This project demonstrates a production-ready event-driven architecture pattern using Azure serverless technologies. An order processing system accepts incoming orders, queues them for asynchronous processing, and handles them with Azure Functions while maintaining comprehensive logging and monitoring.</p>
+                
+                <div class="highlight-box">
+                    <strong>Key Achievement:</strong> Complete end-to-end serverless solution deployed to Azure using Bicep Infrastructure as Code, demonstrating modern cloud architecture patterns and DevOps practices.
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Architecture</h2>
+                
+                <h3>Application Flow</h3>
+                <div class="diagram-container">
+                    <div class="diagram-placeholder">
+                        [Architecture Diagram: HTTP Request → Azure Function (HTTP Trigger) → Storage Queue → Azure Function (Queue Trigger) → Processing Complete]
+                    </div>
+                </div>
+
+                <h3>Component Description</h3>
+                <ul>
+                    <li><strong>HTTP-Triggered Function:</strong> Receives order requests, validates input, and enqueues messages</li>
+                    <li><strong>Storage Queue:</strong> Provides reliable, asynchronous message delivery between components</li>
+                    <li><strong>Queue-Triggered Function:</strong> Processes orders from queue with automatic retry and poison message handling</li>
+                    <li><strong>Application Insights:</strong> Centralized logging, monitoring, and distributed tracing</li>
+                </ul>
+
+                <h3>Infrastructure Components</h3>
+                <div class="diagram-container">
+                    <div class="diagram-placeholder">
+                        [Infrastructure Diagram: Resource Group → Function App → Storage Account → Application Insights → App Service Plan]
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Technology Stack</h2>
+                <div class="tech-list">
+                    <div class="tech-item">
+                        <strong>Azure Functions</strong>
+                        <span>Serverless compute with HTTP and Queue triggers</span>
+                    </div>
+                    <div class="tech-item">
+                        <strong>Storage Queues</strong>
+                        <span>Reliable asynchronous messaging</span>
+                    </div>
+                    <div class="tech-item">
+                        <strong>.NET 8</strong>
+                        <span>Modern C# with isolated worker model</span>
+                    </div>
+                    <div class="tech-item">
+                        <strong>Bicep</strong>
+                        <span>Infrastructure as Code for Azure deployment</span>
+                    </div>
+                    <div class="tech-item">
+                        <strong>Application Insights</strong>
+                        <span>Monitoring, logging, and diagnostics</span>
+                    </div>
+                    <div class="tech-item">
+                        <strong>Managed Identity</strong>
+                        <span>Secure, credential-free authentication</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Architectural Decisions</h2>
+                
+                <h3>Why Storage Queues?</h3>
+                <p>This implementation uses Azure Storage Queues for message handling. The decision framework below shows when to use each Azure messaging service:</p>
+                
+                <table class="decision-table">
+                    <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th>Best For</th>
+                            <th>Key Features</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Storage Queues</td>
+                            <td>Simple, cost-effective queueing</td>
+                            <td>Basic FIFO, 500TB capacity, REST API, low cost</td>
+                        </tr>
+                        <tr>
+                            <td>Service Bus</td>
+                            <td>Enterprise messaging patterns</td>
+                            <td>Topics, subscriptions, transactions, guaranteed ordering</td>
+                        </tr>
+                        <tr>
+                            <td>Event Hubs</td>
+                            <td>High-volume event streaming</td>
+                            <td>Millions of events/sec, event replay, partitioning</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="highlight-box">
+                    <strong>Decision Rationale:</strong> Storage Queues selected for this demo due to simplicity, low cost, and sufficient scale for order processing scenarios. Service Bus would be considered for scenarios requiring guaranteed message ordering or complex routing.
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Implementation Highlights</h2>
+                
+                <h3>Bicep Infrastructure as Code</h3>
+                <ul>
+                    <li>Declarative Azure resource definitions</li>
+                    <li>Parameterized for multiple environments</li>
+                    <li>System Managed Identity configuration</li>
+                    <li>Application Insights integration</li>
+                    <li>Repeatable, version-controlled deployments</li>
+                </ul>
+
+                <h3>Function Implementation</h3>
+                <ul>
+                    <li>Isolated worker process model (.NET 8)</li>
+                    <li>Proper async/await patterns throughout</li>
+                    <li>Comprehensive error handling and logging</li>
+                    <li>Automatic retry with exponential backoff</li>
+                    <li>Poison message handling</li>
+                </ul>
+
+                <h3>Observability</h3>
+                <ul>
+                    <li>Structured logging to Application Insights</li>
+                    <li>Distributed tracing across function invocations</li>
+                    <li>Custom metrics and telemetry</li>
+                    <li>Performance monitoring and alerts</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>Deployment</h2>
+                
+                <h3>Azure CLI Deployment</h3>
+                <p>Infrastructure and application deployed using Azure CLI commands:</p>
+                
+                <div class="code-block">
+# Deploy Bicep template<br>
+az deployment group create \<br>
+  --resource-group order-processing-rg \<br>
+  --template-file main.bicep \<br>
+  --parameters @parameters.json<br>
+<br>
+# Deploy function code<br>
+func azure functionapp publish order-processing-func
+                </div>
+
+                <h3>Current Status</h3>
+                <ul>
+                    <li>✓ Complete infrastructure deployed to Azure</li>
+                    <li>✓ Working end-to-end message processing</li>
+                    <li>✓ Application Insights logging operational</li>
+                    <li>✓ System Managed Identity configured</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>Key Learnings</h2>
+                <ul>
+                    <li><strong>Bicep IaC:</strong> Significantly faster than manual Azure Portal configuration; enables consistent, repeatable deployments</li>
+                    <li><strong>Queue-based decoupling:</strong> Provides natural scalability and resilience; failed processing attempts automatically retry</li>
+                    <li><strong>Application Insights:</strong> Essential for serverless debugging; distributed tracing reveals issues invisible in traditional logging</li>
+                    <li><strong>Managed Identity:</strong> Eliminates credential management; simplifies security model significantly</li>
+                    <li><strong>Cost considerations:</strong> Consumption plan provides excellent cost efficiency for variable workloads</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>Portfolio Value</h2>
+                <p>This project demonstrates:</p>
+                <ul>
+                    <li>Modern cloud architecture patterns and best practices</li>
+                    <li>Infrastructure as Code proficiency with Bicep</li>
+                    <li>Serverless computing implementation experience</li>
+                    <li>DevOps automation and deployment pipelines</li>
+                    <li>Architectural decision-making and trade-off analysis</li>
+                    <li>Production-ready code with proper error handling and observability</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="links-section">
+            <h3>Related Resources</h3>
+            <div class="link-item"><a href="https://azure.microsoft.com/en-us/products/functions">Azure Functions Documentation</a></div>
+            <div class="link-item"><a href="https://learn.microsoft.com/en-us/azure/azure-functions/functions-infrastructure-as-code">Bicep for Azure Functions</a></div>
+            <div class="link-item"><a href="http://michb.net">Back to Portfolio</a></div>
+        </div>
+
+        <div class="footer">
+            <p>Developed by Michael Bruno with AI-assisted development tools</p>
+        </div>
+    </div>
+</body>
+</html>
