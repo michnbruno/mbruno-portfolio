@@ -69,6 +69,36 @@
             padding: 20px 30px;
         }
 
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .page-header-content {
+            flex: 1;
+        }
+
+        .back-link {
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 8px 16px;
+            border: 1px solid #0066cc;
+            border-radius: 4px;
+            transition: all 0.2s;
+            white-space: nowrap;
+            margin-left: 20px;
+        }
+
+        .back-link:hover {
+            background: #0066cc;
+            color: white;
+        }
+
         .page-title {
             font-size: 1.5rem;
             font-weight: 600;
@@ -79,9 +109,6 @@
         .page-description {
             font-size: 0.85rem;
             color: #555;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #eee;
         }
 
         .section {
@@ -206,6 +233,16 @@
             .tabs {
                 flex-wrap: wrap;
             }
+
+            .page-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .back-link {
+                margin-left: 0;
+                align-self: flex-start;
+            }
         }
     </style>
 </head>
@@ -222,8 +259,13 @@
     </header>
 
     <div class="container">
-        <h1 class="page-title">AI Tools Assessment for Software Development</h1>
-        <p class="page-description">Documenting hands-on experience with AI-assisted development covering .NET, SPA Frameworks, and Architecture. Work in progress.</p>
+        <div class="page-header">
+            <div class="page-header-content">
+                <h1 class="page-title">AI Tools Assessment for Software Development</h1>
+                <p class="page-description">Documenting hands-on experience with AI-assisted development covering .NET, SPA Frameworks, and Architecture. Work in progress.</p>
+            </div>
+            <a href="projects.html" class="back-link">← Back to Projects</a>
+        </div>
 
         <!-- .NET Development Section -->
         <div class="section">
