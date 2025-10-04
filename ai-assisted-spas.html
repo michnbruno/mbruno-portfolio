@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern SPA Development - Michael Bruno</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.4;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 2px solid #0066cc;
+            padding: 20px 0;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .site-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav a {
+            color: #555;
+            text-decoration: none;
+            font-size: 0.95rem;
+            padding: 8px 0;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .nav a:hover,
+        .nav a.active {
+            color: #0066cc;
+            border-bottom-color: #0066cc;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 15px auto;
+            padding: 0 30px;
+            background: white;
+            border: 1px solid #ddd;
+        }
+
+        .page-header {
+            padding: 25px 30px;
+            border-bottom: 2px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .page-header-content {
+            flex: 1;
+        }
+
+        .back-link {
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 8px 16px;
+            border: 1px solid #0066cc;
+            border-radius: 4px;
+            transition: all 0.2s;
+            white-space: nowrap;
+            margin-left: 20px;
+        }
+
+        .back-link:hover {
+            background: #0066cc;
+            color: white;
+        }
+
+        .page-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+        }
+
+        .page-description {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .section {
+            padding: 20px 30px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 12px;
+        }
+
+        .tab {
+            padding: 8px 18px;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: #666;
+            transition: all 0.2s;
+        }
+
+        .tab:hover {
+            color: #0066cc;
+            background: #f9f9f9;
+        }
+
+        .tab.active {
+            color: #0066cc;
+            border-bottom-color: #0066cc;
+            font-weight: 500;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .assessment-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+
+        .assessment-table th {
+            background: #f8f8f8;
+            padding: 8px 10px;
+            text-align: left;
+            border-bottom: 2px solid #ddd;
+            font-weight: 600;
+            color: #1a1a1a;
+            font-size: 0.8rem;
+        }
+
+        .assessment-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #eee;
+            font-size: 0.8rem;
+            color: #555;
+            vertical-align: top;
+            line-height: 1.4;
+        }
+
+        .assessment-table td:first-child {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .tab-content h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+        }
+
+        .tab-content ul {
+            margin-left: 20px;
+            font-size: 0.85rem;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .tab-content ul li {
+            margin-bottom: 6px;
+        }
+
+        .tab-content p {
+            font-size: 0.85rem;
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        .workflow-stage {
+            background: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #0066cc;
+        }
+
+        .workflow-stage h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .workflow-stage p {
+            font-size: 0.85rem;
+            color: #555;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            border-top: 1px solid #ddd;
+            padding: 20px 30px;
+            text-align: center;
+            max-width: 1200px;
+            margin: 15px auto;
+        }
+
+        .footer p {
+            font-size: 0.85rem;
+            color: #666;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .tabs {
+                flex-wrap: wrap;
+            }
+
+            .container {
+                margin: 10px;
+                padding: 0;
+            }
+
+            .page-header {
+                padding: 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .back-link {
+                margin-left: 0;
+                align-self: flex-start;
+            }
+
+            .section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="site-title">Michael Bruno</div>
+            <nav class="nav">
+                <a href="index.html">Home</a>
+                <a href="projects.html">Projects</a>
+                <a href="about.html">About</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="page-header">
+            <div class="page-header-content">
+                <h1 class="page-title">Modern SPA Development with AI-Assisted Tools</h1>
+                <p class="page-description">Evaluating AI tooling capabilities and framework translation patterns from a backend/cloud architect perspective. Demonstrates strategic technology evaluation and understanding of modern development workflows.</p>
+            </div>
+            <a href="projects.html" class="back-link">← Back to Projects</a>
+        </div>
+
+        <!-- Development Workflow Section -->
+        <div class="section">
+            <h2 class="section-title">Development Workflow</h2>
+            <div class="tabs">
+                <button class="tab active" data-section="workflow" data-tab="process">Translation Process</button>
+                <button class="tab" data-section="workflow" data-tab="findings">Key Findings</button>
+                <button class="tab" data-section="workflow" data-tab="metrics">Productivity Impact</button>
+            </div>
+
+            <div id="workflow-process" class="tab-content active">
+                <div class="workflow-stage">
+                    <h4>Stage 1: Design Input (Angular Reference)</h4>
+                    <p>Existing Angular SPA with production folder structure, JWT authentication, and CRUD operations against tbl_products entity (ID, Name, Category, Price fields).</p>
+                </div>
+
+                <div class="workflow-stage">
+                    <h4>Stage 2: AI-Assisted Translation to React</h4>
+                    <p>Provided Angular screenshot to AI tool. Generated single-page React prototype with Bootstrap styling, component structure, state management, and mock data service - functional in under 30 minutes.</p>
+                </div>
+
+                <div class="workflow-stage">
+                    <h4>Outcome: Framework Pattern Validation</h4>
+                    <p>Demonstrated AI tools can rapidly translate CRUD patterns across frameworks while maintaining consistent user experience. Proves concept viability for strategic framework evaluation without manual reimplementation.</p>
+                </div>
+            </div>
+
+            <div id="workflow-findings" class="tab-content">
+                <h3>What AI Handled Well</h3>
+                <ul>
+                    <li>Component architecture translation (navbar, form, table list with proper React patterns)</li>
+                    <li>State management with hooks (useState, useEffect for data fetching and filtering)</li>
+                    <li>Bootstrap CSS integration matching original Angular styling</li>
+                    <li>CRUD operation logic (Create, Read, Update, Delete with proper data flow)</li>
+                    <li>Mock data service pattern mimicking real API structure</li>
+                </ul>
+
+                <h3 style="margin-top: 15px;">What Required Human Decisions</h3>
+                <ul>
+                    <li>Architecture choices (single-page vs. multi-component structure for prototype)</li>
+                    <li>Scoping decisions (authentication excluded, focus on core CRUD patterns)</li>
+                    <li>Data validation and error handling strategies</li>
+                    <li>Integration approach for production scenarios (API contracts, auth patterns)</li>
+                    <li>Strategic framework selection criteria beyond technical translation</li>
+                </ul>
+            </div>
+
+            <div id="workflow-metrics" class="tab-content">
+                <table class="assessment-table">
+                    <thead>
+                        <tr>
+                            <th>Activity</th>
+                            <th>Traditional Approach</th>
+                            <th>AI-Assisted Approach</th>
+                            <th>Impact</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Initial Prototype</td>
+                            <td>4-8 hours</td>
+                            <td>30 minutes</td>
+                            <td>8-16x faster iteration</td>
+                        </tr>
+                        <tr>
+                            <td>Component Structure</td>
+                            <td>Manual scaffolding and wiring</td>
+                            <td>Generated with proper patterns</td>
+                            <td>Immediate best practices</td>
+                        </tr>
+                        <tr>
+                            <td>Framework Comparison</td>
+                            <td>Build multiple implementations</td>
+                            <td>Rapid translation for validation</td>
+                            <td>Enable strategic evaluation</td>
+                        </tr>
+                        <tr>
+                            <td>Documentation</td>
+                            <td>Manual after implementation</td>
+                            <td>Generated alongside code</td>
+                            <td>Parallel delivery</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- AI Tool Assessment Section -->
+        <div class="section">
+            <h2 class="section-title">AI Tool Assessment</h2>
+            <div class="tabs">
+                <button class="tab active" data-section="ai" data-tab="capabilities">Capabilities</button>
+                <button class="tab" data-section="ai" data-tab="limitations">Limitations</button>
+                <button class="tab" data-section="ai" data-tab="value">Strategic Value</button>
+            </div>
+
+            <div id="ai-capabilities" class="tab-content active">
+                <table class="assessment-table">
+                    <thead>
+                        <tr>
+                            <th>Capability</th>
+                            <th>Assessment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Pattern Recognition</td>
+                            <td>Accurately identified CRUD patterns, navigation structure, and form/table relationships from Angular screenshot</td>
+                        </tr>
+                        <tr>
+                            <td>Framework Translation</td>
+                            <td>Successfully converted Angular patterns to React equivalents (directives → hooks, services → state management)</td>
+                        </tr>
+                        <tr>
+                            <td>Code Quality</td>
+                            <td>Generated production-ready patterns with proper separation of concerns and React best practices</td>
+                        </tr>
+                        <tr>
+                            <td>Styling Consistency</td>
+                            <td>Maintained Bootstrap implementation matching original design aesthetic</td>
+                        </tr>
+                        <tr>
+                            <td>Speed</td>
+                            <td>Prototype generation in minutes vs. hours for manual implementation</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="ai-limitations" class="tab-content">
+                <table class="assessment-table">
+                    <thead>
+                        <tr>
+                            <th>Area</th>
+                            <th>Limitation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Architectural Decisions</td>
+                            <td>Cannot determine business requirements or strategic technology choices without human context</td>
+                        </tr>
+                        <tr>
+                            <td>Integration Patterns</td>
+                            <td>Requires guidance on API contracts, authentication flows, and backend integration approaches</td>
+                        </tr>
+                        <tr>
+                            <td>Performance Optimization</td>
+                            <td>Generates functional code but may need human review for large-scale performance considerations</td>
+                        </tr>
+                        <tr>
+                            <td>Security Decisions</td>
+                            <td>Implements patterns but cannot make context-specific security architecture choices</td>
+                        </tr>
+                        <tr>
+                            <td>Business Logic</td>
+                            <td>Cannot infer complex validation rules or domain-specific requirements</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="ai-value" class="tab-content">
+                <h3>Where AI Tools Provide Maximum Value</h3>
+                <ul>
+                    <li><strong>Rapid Prototyping:</strong> Quick proof-of-concept development to validate architectural approaches</li>
+                    <li><strong>Pattern Translation:</strong> Converting established patterns across technologies (Angular → React, .NET → Node.js)</li>
+                    <li><strong>Boilerplate Reduction:</strong> Eliminating repetitive scaffolding work while maintaining quality</li>
+                    <li><strong>Learning Acceleration:</strong> Exploring new frameworks with generated examples following best practices</li>
+                    <li><strong>Documentation:</strong> Generating technical documentation alongside implementation</li>
+                </ul>
+
+                <h3 style="margin-top: 15px;">Where Human Expertise Remains Critical</h3>
+                <ul>
+                    <li><strong>Strategic Technology Selection:</strong> Choosing frameworks based on team skills, project requirements, ecosystem maturity</li>
+                    <li><strong>Architecture Design:</strong> Determining system boundaries, integration patterns, scalability approaches</li>
+                    <li><strong>Security Architecture:</strong> Implementing auth flows, data protection, compliance requirements</li>
+                    <li><strong>Performance Engineering:</strong> Optimizing for specific workload characteristics and scale requirements</li>
+                    <li><strong>Quality Oversight:</strong> Code review, testing strategy, production readiness assessment</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Framework Considerations Section -->
+        <div class="section">
+            <h2 class="section-title">Framework Considerations</h2>
+            <div class="tabs">
+                <button class="tab active" data-section="framework" data-tab="comparison">Framework Comparison</button>
+                <button class="tab" data-section="framework" data-tab="integration">Backend Integration</button>
+                <button class="tab" data-section="framework" data-tab="selection">Selection Criteria</button>
+            </div>
+
+            <div id="framework-comparison" class="tab-content active">
+                <table class="assessment-table">
+                    <thead>
+                        <tr>
+                            <th>Framework</th>
+                            <th>Strengths</th>
+                            <th>Considerations</th>
+                            <th>Best For</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>React</td>
+                            <td>Largest ecosystem, flexible, strong community, AI tooling excellent</td>
+                            <td>More decisions required, JSX learning curve</td>
+                            <td>Greenfield projects, teams wanting flexibility</td>
+                        </tr>
+                        <tr>
+                            <td>Angular</td>
+                            <td>Full framework, TypeScript native, enterprise patterns built-in</td>
+                            <td>Steeper learning curve, more opinionated</td>
+                            <td>Enterprise applications, .NET shop integration</td>
+                        </tr>
+                        <tr>
+                            <td>Vue.js</td>
+                            <td>Gentle learning curve, excellent documentation, progressive adoption</td>
+                            <td>Smaller ecosystem than React, less enterprise adoption</td>
+                            <td>Incremental modernization, rapid development</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="framework-integration" class="tab-content">
+                <h3>.NET API Integration Patterns</h3>
+                <p style="margin-bottom: 10px;">All three frameworks integrate effectively with .NET backends through standard RESTful APIs. Key integration considerations:</p>
+                
+                <table class="assessment-table">
+                    <thead>
+                        <tr>
+                            <th>Integration Aspect</th>
+                            <th>Implementation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>API Communication</td>
+                            <td>Fetch API, Axios, or framework-specific HTTP clients work consistently across all frameworks</td>
+                        </tr>
+                        <tr>
+                            <td>Authentication</td>
+                            <td>JWT token patterns identical; route guards/protected routes vary by framework</td>
+                        </tr>
+                        <tr>
+                            <td>Real-Time Updates</td>
+                            <td>SignalR client libraries available for all three; integration patterns similar</td>
+                        </tr>
+                        <tr>
+                            <td>TypeScript DTOs</td>
+                            <td>Can share type definitions between .NET and frontend; Angular has native advantage</td>
+                        </tr>
+                        <tr>
+                            <td>Error Handling</td>
+                            <td>HTTP interceptors (Angular) vs. middleware patterns (React/Vue) - functionally equivalent</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="framework-selection" class="tab-content">
+                <h3>Strategic Selection Criteria</h3>
+                <ul>
+                    <li><strong>Team Experience:</strong> Existing skills and learning curve tolerance</li>
+                    <li><strong>Project Scope:</strong> Application complexity and long-term maintenance requirements</li>
+                    <li><strong>Backend Technology:</strong> .NET shops may prefer Angular for TypeScript alignment</li>
+                    <li><strong>Ecosystem Needs:</strong> Third-party component libraries and tooling availability</li>
+                    <li><strong>Performance Requirements:</strong> Initial load time, runtime performance, bundle size</li>
+                    <li><strong>Mobile Strategy:</strong> React Native integration for cross-platform mobile apps</li>
+                    <li><strong>Enterprise Support:</strong> Corporate backing, LTS versions, migration paths</li>
+                </ul>
+
+                <p style="margin-top: 15px;">AI tools democratize framework exploration by enabling rapid prototyping across technologies. Backend/cloud architects can validate integration patterns without becoming frontend specialists, making informed technology recommendations based on hands-on evaluation rather than theory.</p>
+            </div>
+        </div>
+
+        <!-- Portfolio Value Section -->
+        <div class="section">
+            <h2 class="section-title">Portfolio Value</h2>
+            <p style="font-size: 0.85rem; color: #555; line-height: 1.5; margin-bottom: 10px;">This project demonstrates:</p>
+            <ul style="margin-left: 20px; font-size: 0.85rem; color: #555; line-height: 1.5;">
+                <li style="margin-bottom: 6px;">Strategic technology evaluation methodology for framework selection</li>
+                <li style="margin-bottom: 6px;">Understanding of AI tool capabilities and appropriate use cases</li>
+                <li style="margin-bottom: 6px;">Backend/cloud architect perspective on frontend integration patterns</li>
+                <li style="margin-bottom: 6px;">Practical assessment of modern development workflow acceleration</li>
+                <li style="margin-bottom: 6px;">Architectural thinking beyond hands-on implementation</li>
+                <li style="margin-bottom: 6px;">Positioning AI tools as enablers rather than replacements for technical judgment</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Developed by Michael Bruno with AI-assisted development tools</p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const section = this.getAttribute('data-section');
+                const targetTab = this.getAttribute('data-tab');
+                const tabContentId = `${section}-${targetTab}`;
+                
+                const sectionElement = this.closest('.section');
+                sectionElement.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                sectionElement.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                this.classList.add('active');
+                document.getElementById(tabContentId).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
