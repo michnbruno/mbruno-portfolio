@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About - Michael Bruno</title>
+    <title>Michael Bruno - Portfolio Projects</title>
     <style>
         * {
             margin: 0;
@@ -65,59 +65,45 @@
             padding: 0 30px;
         }
 
+        .hero {
+            background: white;
+            padding: 30px;
+            margin-bottom: 25px;
+            border: 1px solid #ddd;
+        }
+
+        .hero h1 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.5;
+            max-width: 900px;
+        }
+
         .about-section {
             background: white;
             padding: 30px;
             border: 1px solid #ddd;
-            position: relative;
-        }
-
-        .back-link {
-            position: absolute;
-            top: 30px;
-            right: 30px;
-            color: #0066cc;
-            text-decoration: none;
-            font-size: 0.9rem;
-            padding: 8px 16px;
-            border: 1px solid #0066cc;
-            border-radius: 4px;
-            transition: all 0.2s;
-            white-space: nowrap;
-        }
-
-        .back-link:hover {
-            background: #0066cc;
-            color: white;
-        }
-
-        .about-section h1 {
-            font-size: 1.6rem;
-            font-weight: 600;
-            color: #1a1a1a;
-            margin-bottom: 20px;
-            padding-right: 150px;
         }
 
         .about-section h2 {
-            font-size: 1.1rem;
+            font-size: 1.3rem;
             font-weight: 600;
             color: #1a1a1a;
-            margin: 25px 0 12px 0;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
-        }
-
-        .about-section h2:first-of-type {
-            border-top: none;
-            padding-top: 0;
+            margin-bottom: 15px;
         }
 
         .about-section p {
             font-size: 0.9rem;
             color: #555;
             line-height: 1.5;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
         }
 
         .links-section {
@@ -163,26 +149,16 @@
                 gap: 15px;
             }
 
+            .hero {
+                padding: 25px;
+            }
+
             .about-section {
                 padding: 25px;
             }
 
-            .back-link {
-                position: static;
-                display: inline-block;
-                margin-bottom: 15px;
-            }
-
-            .about-section h1 {
-                padding-right: 0;
-            }
-
             .links-section {
                 flex-direction: column;
-            }
-
-            .link-button {
-                text-align: center;
             }
         }
     </style>
@@ -192,32 +168,29 @@
         <div class="header-content">
             <div class="site-title">Michael Bruno</div>
             <nav class="nav">
-                <!-- <a href="index.html">Home</a> -->
-                <a href="index.html">Projects</a>
-                <a href="about.html" class="active">About</a>
+                <a href="index.html" class="active">Home</a>
+                <a href="projects.html">Projects</a>
+                <a href="about.html">About</a>
             </nav>
         </div>
     </header>
 
     <div class="container">
+        <section class="hero">
+            <h1>Portfolio Projects 2025</h1>
+            <p>Current technical work demonstrating modern development practices, cloud architecture patterns, and AI-assisted development workflows. Hands-on experience modernizing .NET applications to .NET 8, Azure PaaS deployment, and AI-assisted SPA development. Emphasis on architectural trade-offs and strategic technology decisions.</p>
+            <p style="margin-top: 15px;"><a href="projects.html" style="color: #0066cc; text-decoration: none; border-bottom: 1px solid #0066cc;">View All Projects →</a></p>
+        </section>
+
         <section class="about-section">
-            <a href="index.html" class="back-link">← Back to Home</a>
-            
-            <h1>About</h1>
-
-            <h2>Current Focus</h2>
-            <p>Exploring modern development workflows, cloud architecture patterns, and the integration of AI-assisted development tools into professional software engineering practice. Each portfolio project demonstrates both hands-on technical implementation and strategic thinking about technology choices.</p>
-
-            <h2>Development Approach</h2>
-            <p>All portfolio work leverages AI-assisted development tools to accelerate implementation while maintaining quality through human oversight and architectural decision-making. This approach demonstrates both technical proficiency and strategic understanding of emerging development practices.</p>
-
-            <h2>Connect</h2>
-            <p>Feel free to explore the portfolio projects, review code on GitHub, or visit my personal website for additional background.</p>
+            <h2>About This Portfolio</h2>
+            <p>Each project includes architectural decision documentation, implementation details, and lessons learned. The emphasis is on demonstrating both hands-on technical skills and strategic thinking about technology choices.</p>
 
             <div class="links-section">
+         
                 <a href="https://github.com/michnbruno" class="link-button" target="_blank">GitHub Profile</a>
                 <a href="http://michb.net" class="link-button" target="_blank">Personal Website</a>
-                <a href="mailto:michnbruno@gmail.com" class="link-button">Email</a>
+                <a href="about.html" class="link-button">About</a>
             </div>
         </section>
     </div>

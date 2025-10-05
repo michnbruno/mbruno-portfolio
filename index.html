@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Michael Bruno - Portfolio Projects</title>
+    <title>Projects - Michael Bruno</title>
     <style>
         * {
             margin: 0;
@@ -65,68 +65,124 @@
             padding: 0 30px;
         }
 
-        .hero {
+        .page-header {
             background: white;
             padding: 30px;
             margin-bottom: 25px;
             border: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
         }
 
-        .hero h1 {
+        .page-header-content {
+            flex: 1;
+        }
+
+        .back-link {
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 8px 16px;
+            border: 1px solid #0066cc;
+            border-radius: 4px;
+            transition: all 0.2s;
+            white-space: nowrap;
+            margin-left: 20px;
+        }
+
+        .back-link:hover {
+            background: #0066cc;
+            color: white;
+        }
+
+        .page-header h1 {
             font-size: 1.6rem;
             font-weight: 600;
             color: #1a1a1a;
             margin-bottom: 12px;
         }
 
-        .hero p {
+        .page-header p {
             font-size: 0.9rem;
             color: #555;
             line-height: 1.5;
-            max-width: 900px;
         }
 
-        .about-section {
+        .projects-section {
             background: white;
             padding: 30px;
             border: 1px solid #ddd;
         }
 
-        .about-section h2 {
-            font-size: 1.3rem;
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .project-card {
+            border: 1px solid #ddd;
+            padding: 20px;
+            transition: all 0.2s;
+            background: #fafafa;
+        }
+
+        .project-card:hover {
+            border-color: #0066cc;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .project-card h3 {
+            font-size: 1.1rem;
             font-weight: 600;
             color: #1a1a1a;
-            margin-bottom: 15px;
+            margin-bottom: 8px;
         }
 
-        .about-section p {
-            font-size: 0.9rem;
-            color: #555;
-            line-height: 1.5;
-            margin-bottom: 15px;
+        .project-card .tech {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 10px;
+            font-style: italic;
         }
 
-        .links-section {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
-        .link-button {
+        .project-card .status {
             display: inline-block;
-            padding: 8px 18px;
-            background: white;
-            border: 1px solid #0066cc;
+            padding: 3px 8px;
+            font-size: 0.75rem;
+            margin-bottom: 10px;
+            border-radius: 3px;
+        }
+
+        .status-complete {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status-progress {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .project-card p {
+            font-size: 0.85rem;
+            color: #555;
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+
+        .project-card a {
+            display: inline-block;
             color: #0066cc;
             text-decoration: none;
             font-size: 0.85rem;
-            transition: all 0.2s;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
         }
 
-        .link-button:hover {
-            background: #0066cc;
-            color: white;
+        .project-card a:hover {
+            border-bottom-color: #0066cc;
         }
 
         .footer {
@@ -149,16 +205,23 @@
                 gap: 15px;
             }
 
-            .hero {
+            .page-header {
                 padding: 25px;
-            }
-
-            .about-section {
-                padding: 25px;
-            }
-
-            .links-section {
                 flex-direction: column;
+                gap: 15px;
+            }
+
+            .back-link {
+                margin-left: 0;
+                align-self: flex-start;
+            }
+
+            .projects-section {
+                padding: 25px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -168,29 +231,55 @@
         <div class="header-content">
             <div class="site-title">Michael Bruno</div>
             <nav class="nav">
-                <a href="index.html" class="active">Home</a>
-                <a href="projects.html">Projects</a>
+                <!-- <a href="index.html">Home</a> -->
+                <a href="index.html" class="active">Projects</a>
                 <a href="about.html">About</a>
             </nav>
         </div>
     </header>
 
     <div class="container">
-        <section class="hero">
-            <h1>Portfolio Projects 2025</h1>
-            <p>Current technical work demonstrating modern development practices, cloud architecture patterns, and AI-assisted development workflows. Hands-on experience modernizing .NET applications to .NET 8, Azure PaaS deployment, and AI-assisted SPA development. Emphasis on architectural trade-offs and strategic technology decisions.</p>
-            <p style="margin-top: 15px;"><a href="projects.html" style="color: #0066cc; text-decoration: none; border-bottom: 1px solid #0066cc;">View All Projects →</a></p>
+        <section class="page-header">
+            <div class="page-header-content">
+                <h1>Portfolio Projects</h1>
+                <p>Current technical work demonstrating modern development practices, cloud architecture patterns, and strategic technology evaluation. Each project includes detailed documentation of architectural decisions and implementation approaches.</p>
+            </div>
+            <a href="index.html" class="back-link">← Back to Home</a>
         </section>
 
-        <section class="about-section">
-            <h2>About This Portfolio</h2>
-            <p>Each project includes architectural decision documentation, implementation details, and lessons learned. The emphasis is on demonstrating both hands-on technical skills and strategic thinking about technology choices.</p>
+        <section class="projects-section">
+            <div class="projects-grid">
+                <div class="project-card">
+                    <span class="status status-complete">Complete</span>
+                    <h3>AI Tools Assessment</h3>
+                    <div class="tech">.NET, React, Azure, AI Collaboration</div>
+                    <p>Comprehensive evaluation of AI-assisted development across backend, frontend, and architecture work. Documents real productivity gains and strategic implementation approaches based on hands-on experience.</p>
+                    <a href="ai-tools-assessment.html">View Project →</a>
+                </div>
 
-            <div class="links-section">
-         
-                <a href="https://github.com/michnbruno" class="link-button" target="_blank">GitHub Profile</a>
-                <a href="http://michb.net" class="link-button" target="_blank">Personal Website</a>
-                <a href="about.html" class="link-button">About</a>
+                <div class="project-card">
+                    <span class="status status-complete">Complete</span>
+                    <h3>Event-Driven Architecture</h3>
+                    <div class="tech">Azure Functions, Storage Queues, Bicep IaC</div>
+                    <p>Production-ready serverless order processing system demonstrating event-driven patterns with comprehensive Infrastructure as Code deployment. Includes architectural decision framework for Azure messaging services.</p>
+                    <a href="event-architecture.html">View Project →</a>
+                </div>
+
+                <div class="project-card">
+                    <span class="status status-progress">In Progress</span>
+                    <h3>Generic CRUD API</h3>
+                    <div class="tech">.NET 8, EF Core, Reflection, React</div>
+                    <p>Flexible API architecture using reflection-based repository patterns that adapts to multiple entity types with single implementation. Integrated with modern React SPA demonstrating full-stack capabilities.</p>
+                    <a href="#">Coming Soon</a>
+                </div>
+
+                <div class="project-card">
+                    <span class="status status-complete">Complete</span>
+                    <h3>SPA Framework Comparison</h3>
+                    <div class="tech">React, Angular, Vue.js, TypeScript</div>
+                    <p>Comparative analysis of modern frontend frameworks using identical backend API. Demonstrates framework trade-offs, architectural patterns, and strategic selection criteria for technology decisions.</p>
+                    <a href="ai-assisted-spas.html">View Project →</a>
+                </div>
             </div>
         </section>
     </div>
