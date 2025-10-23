@@ -78,6 +78,13 @@
             font-size: 0.85rem;
         }
 
+        .skills-grid-narrow {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px 18px;
+            font-size: 0.85rem;
+        }
+
         .skill-category {
             color: #333;
         }
@@ -140,21 +147,24 @@
             font-weight: bold;
         }
 
-        .portfolio-links {
+        .content-text {
             font-size: 0.85rem;
             color: #333;
             line-height: 1.5;
         }
 
-        .portfolio-links a {
+        .content-text a {
             color: #0066cc;
             text-decoration: none;
-            border-bottom: 1px solid transparent;
         }
 
-        .portfolio-links a:hover {
-            border-bottom-color: #0066cc;
-        }
+        @media print {
+    .pagebreak {
+        clear: both;
+      	min-height: 1px;
+        page-break-after: always;
+    }
+}
     </style>
 </head>
 <body>
@@ -171,7 +181,7 @@
     <div class="section">
         <div class="section-title">Professional Summary</div>
         <div class="summary">
-            Senior Software Developer and Technical Architect with 15+ years building enterprise applications, leading cloud transformations, and evaluating emerging technologies. Currently focused on modernizing development workflows with AI-assisted tools and advancing cloud architecture patterns on Azure.
+            Senior Software Developer with 15+ years experience building enterprise and line of business applications. Experienced in cloud migrations, integrations, and full-stack .NET/SPA development. Ability to work in both development and leadership roles.
         </div>
     </div>
 
@@ -179,20 +189,26 @@
         <div class="section-title">Technical Skills</div>
         <div class="skills-grid">
             <div class="skill-category">
+                <strong>Languages & Frameworks</strong>
+                C# (10+ yrs), .NET 8/Core (10+ yrs), Entity Framework (10+ yrs), JavaScript/TypeScript (8+ yrs), React, Angular
+            </div>
+            <div class="skill-category">
                 <strong>Cloud & Infrastructure</strong>
-                Azure PaaS, Container Apps, Functions, Static Web Apps, Bicep IaC, YAML/GitHub Pipelines
+                Azure PaaS (10+ yrs), Azure Functions, Container Apps, Bicep IaC, YAML/GitHub Pipelines, Azure DevOps
             </div>
             <div class="skill-category">
-                <strong>Backend Development</strong>
-                .NET 8/Core, C#, Entity Framework, RESTful APIs, Microservices, xUnit/NUnit
+                <strong>Database</strong>
+                SQL/T-SQL (10+ yrs), Azure SQL, SQL Server, Database Design, Performance Optimization
             </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Technologies & Competencies</div>
+        <div class="skills-grid-narrow">
             <div class="skill-category">
-                <strong>Frontend Development</strong>
-                React, Angular, TypeScript, JavaScript, SPA Architecture, Bootstrap/CSS
-            </div>
-            <div class="skill-category">
-                <strong>Database & Data</strong>
-                Azure SQL, SQL Server, T-SQL, Database Design, Performance Optimization
+                <strong>Cloud & Architecture</strong>
+                Microservices Architecture, Serverless Patterns, Infrastructure as Code, Cloud Migrations, RESTful APIs
             </div>
             <div class="skill-category">
                 <strong>Integration & Security</strong>
@@ -210,15 +226,12 @@
 
         <div class="job">
             <div class="job-header">
-                <div class="job-title">Independent Technology Development</div>
+                <div class="job-title">Career Break / Professional Development</div>
                 <div class="job-dates">Nov 2024 – Present</div>
             </div>
-            <div class="job-company">Portfolio Projects & Strategic Upskilling</div>
             <ul class="job-bullets">
-                <li>Evaluated AI-assisted development tools (Claude, GitHub Copilot) for enterprise adoption, documenting productivity gains and implementation strategies across .NET, React, and cloud architecture work</li>
-                <li>Built event-driven architecture demo using Azure Functions, Storage Queues, and Bicep IaC, demonstrating serverless patterns and infrastructure as code practices</li>
-                <li>Developed reflection-based Generic CRUD API in .NET 8 with React SPA integration, creating reusable component architecture patterns</li>
-                <li>Conducted comparative analysis of SPA frameworks (React, Angular, Vue) to evaluate architectural trade-offs and strategic technology selection</li>
+                <li>Stepped away from full time professional work to focus on various personal projects and responsibilities</li>
+                <li>Also, assessing and upskilling with AI-assisted development tools (such as Claude, GitHub Copilot); And furthering learning with modern architecture patterns including event-driven, serverless, and deployment workflows</li>
             </ul>
         </div>
 
@@ -227,14 +240,14 @@
                 <div class="job-title">Development Lead / Senior Developer</div>
                 <div class="job-dates">Mar 2021 – Nov 2024</div>
             </div>
-            <div class="job-company">Lincare (Clearwater, FL) & Daugherty Business Solutions (Columbus, OH - Remote)</div>
+            <div class="job-company">Daugherty Business Solutions (Columbus, OH - Remote) & Lincare (Clearwater, FL - Remote)</div>
             <ul class="job-bullets">
-                <li>Led Azure cloud migration for critical .NET applications, modernizing legacy systems and providing production support for healthcare provider operations</li>
-                <li>Architected API management strategy and authentication systems for financial services platform, coordinating development across distributed teams and multiple technology stacks</li>
-                <li>Designed data integration patterns for large-scale enterprise applications, implementing RESTful APIs and third-party system connections</li>
-                <li>Established technical governance frameworks and development standards for complex system integrations</li>
+                <li>Served as Dev Team Lead on modernization project converting Java APIs to Spring Boot and frontend to React; led separate Azure migration project for internal application (APIs, angular SPA, database, authentication)</li>
+                <li>Maintained and extended legacy .NET applications during Azure migration; provided production support for critical document management system</li>
             </ul>
         </div>
+
+        <div class="pagebreak"></div>
 
         <div class="job">
             <div class="job-header">
@@ -243,10 +256,10 @@
             </div>
             <div class="job-company">Magenic Consulting (Minneapolis, MN - Remote)</div>
             <ul class="job-bullets">
-                <li>Led development teams on two enterprise SAFe Agile projects for Fortune 500 clients, driving Azure cloud adoption and platform modernization initiatives</li>
-                <li>Architected data-driven platforms handling multiple schemas with Azure storage, ETL processing, and multi-party reporting for global accounting firm</li>
-                <li>Managed technical delivery across distributed onshore/offshore teams, establishing development standards and coordinating complex system integrations</li>
-                <li>Created artifact-driven onboarding processes and technical documentation that accelerated team productivity and aligned capabilities with business objectives</li>
+                <li>Dev Team Lead on two separate enterprise SAFe Agile projects for Fortune 500 clients migrating to Azure cloud</li>
+                <li>Built data-driven APIs/platform handling multiple schemas with Azure storage, ETL processing, and multi-party reporting for global accounting firm</li>
+                <li>Managed distributed onshore/offshore development and assisted with designing system integrations</li>
+                <li>Part of platform adoption team that performed solution architecture reviews, and facilitated communications with onboarding teams to accelerate productivity with platform</li>
             </ul>
         </div>
 
@@ -257,26 +270,25 @@
             </div>
             <div class="job-company">LBrands/Victoria's Secret, Gannett Fleming, Contract Projects</div>
             <ul class="job-bullets">
-                <li>Implemented enterprise inventory management systems and GPS-enabled mobile applications using .NET and responsive design</li>
-                <li>Converted legacy systems to modern architectures with improved data access patterns and optimized database performance</li>
-                <li>Developed scalable web applications with focus on user experience and system reliability</li>
+                <li>Worked on a .NET MVC inventory management system and a GPS-enabled .NET mobile/tablet incident management application for highway service vehicles</li>
+                <li>Upgraded legacy .NET application and revised data access patterns to optimize database performance</li>
             </ul>
         </div>
     </div>
 
     <div class="section">
         <div class="section-title">Education</div>
-        <div class="summary">
-            <strong>Bachelor of Science, Economics</strong> – University of Cincinnati
+        <div class="content-text">
+            Bachelor of Science, Economics – University of Cincinnati
         </div>
     </div>
 
-    <div class="section" style="margin-top: 30px;">
+    <div class="section">
         <div class="section-title">Portfolio & Code Samples</div>
-        <div class="portfolio-links">
-            <strong>Live Portfolio:</strong> <a href="https://mbruno-projects.com">mbruno-projects.com</a> – AI Tools Assessment, Event-Driven Architecture, Generic CRUD API, SPA Framework Comparison<br>
-            <strong>GitHub:</strong> <a href="https://github.com/michnbruno">github.com/michnbruno</a> – Azure deployments, Kubernetes configurations, authentication systems<br>
-            <strong>Personal Site:</strong> <a href="https://michb.net">michb.net</a> – Professional background and additional work samples
+        <div class="content-text">
+            Live Portfolio: <a href="https://mbruno-projects.com" target="_blank">mbruno-projects.com</a> – AI Tools Assessment, Event-Driven Architecture, Generic CRUD API, SPA Framework Comparison<br>
+            GitHub: <a href="https://github.com/michnbruno" target="_blank">github.com/michnbruno</a> – Azure deployments, Kubernetes configurations, authentication systems<br>
+            Personal Site: <a href="https://michb.net" target="_blank">michb.net</a> – Professional background and additional work samples
         </div>
     </div>
 </body>
