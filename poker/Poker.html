@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tournament Poker Strategy Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #e8e8e8;
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #1a1a1a;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            border: 2px solid #2d5016;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e4d2b 0%, #2d5016 100%);
+            color: #fff;
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 3px solid #4a7c59;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .stages-list {
+            padding: 10px;
+        }
+
+        .stage-item {
+            border-bottom: 1px solid #333;
+        }
+
+        .stage-item:last-child {
+            border-bottom: none;
+        }
+
+        .stage-header {
+            padding: 18px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1a1a1a;
+            transition: background-color 0.3s ease;
+            user-select: none;
+        }
+
+        .stage-header:hover {
+            background-color: #252525;
+        }
+
+        .stage-header.active {
+            background-color: #2d5016;
+        }
+
+        .stage-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #7cb342;
+            flex: 1;
+        }
+
+        .stage-number {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #558b2f, #7cb342);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-size: 0.9rem;
+            margin-right: 12px;
+            font-weight: 700;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .toggle-icon {
+            font-size: 1.3rem;
+            color: #7cb342;
+            transition: transform 0.3s ease;
+            font-weight: bold;
+        }
+
+        .stage-header.active .toggle-icon {
+            transform: rotate(45deg);
+        }
+
+        .stage-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background: #232323;
+        }
+
+        .stage-content.active {
+            max-height: 5000px;
+        }
+
+        .content-inner {
+            padding: 25px 20px;
+            color: #d0d0d0;
+        }
+
+        .content-inner h3 {
+            color: #7cb342;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .content-inner h3:first-child {
+            margin-top: 0;
+        }
+
+        .content-inner p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .content-inner ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .content-inner li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .content-inner strong {
+            color: #9ccc65;
+        }
+
+        .checklist {
+            background: #2d2d2d;
+            border-left: 4px solid #7cb342;
+            padding: 15px 20px;
+            margin-top: 20px;
+            border-radius: 4px;
+        }
+
+        .checklist h4 {
+            color: #7cb342;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .checklist ul {
+            margin-left: 0;
+            list-style: none;
+        }
+
+        .checklist li {
+            padding-left: 25px;
+            position: relative;
+            margin-bottom: 8px;
+        }
+
+        .checklist li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #7cb342;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .placeholder {
+            font-style: italic;
+            color: #666;
+            padding: 20px;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #888;
+            font-size: 0.9rem;
+            background: #1a1a1a;
+        }
+
+        .suits {
+            font-size: 1.2rem;
+            margin-left: 8px;
+        }
+
+        .spade { color: #333; }
+        .heart { color: #d32f2f; }
+        .club { color: #333; }
+        .diamond { color: #d32f2f; }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            .stage-title {
+                font-size: 0.95rem;
+            }
+
+            .content-inner {
+                padding: 20px 15px;
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>♠️ Tournament Poker Strategy Guide ♥️</h1>
+            <p>Break-time reference for stage-based decision making</p>
+        </header>
+
+        <div class="stages-list">
+            <!-- Stage 1: Accumulate Chips (Early Stage) - FULLY POPULATED -->
+            <div class="stage-item">
+                <div class="stage-header" onclick="toggleContent(this)">
+                    <div>
+                        <span class="stage-number">1</span>
+                        <span class="stage-title">Accumulate Chips (Early Stage)</span>
+                    </div>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="stage-content">
+                    <div class="content-inner">
+                        <p>The early stage is about <strong>building ammunition for the later stages</strong>. With deep stacks relative to blinds (typically 100-200+ BB), you have room to see flops, play post-flop poker, and take calculated risks. Your goal isn't survival—it's accumulation. You need chips to matter when ICM pressure kicks in later. But accumulation requires discipline and position awareness.</p>
+
+                        <h3>Starting Hand Ranges by Position</h3>
+                        <p><strong>Early Position (UTG, UTG+1):</strong> Play tight—premium hands only. Open with 88+, AJ+, KQ suited. You're out of position for the entire hand, so you need strength. Avoid speculative hands like 76s or small pairs—implied odds aren't worth the positional disadvantage.</p>
+
+                        <p><strong>Middle Position (MP, HJ):</strong> Widen slightly. Add 77, 66, ATs+, KJs+, QJs, suited connectors 98s+. You'll have position on some players but not all. Be ready to fold to aggression from later positions.</p>
+
+                        <p><strong>Late Position (CO, BTN):</strong> This is where you make money. Open aggressively: any pair, any Ace, any two broadway cards, suited connectors 65s+, one-gappers like J9s. On the button especially, you're stealing blinds and playing pots in position. Raise first in 40-50% of the time when it folds to you.</p>
+
+                        <p><strong>Blinds:</strong> Defend your big blind liberally against late position opens (call with any pair, suited connectors, Ace-rag). You're getting great pot odds. Small blind is trickier—be more selective since you'll be out of position post-flop.</p>
+
+                        <h3>Stack-to-Pot Ratio (SPR) Concepts</h3>
+                        <p>SPR = (Effective Stack Size) / (Pot Size). This number determines your post-flop strategy:</p>
+                        <ul>
+                            <li><strong>SPR 1-3 (Low):</strong> You're committed. One pair or better is often good enough to get it in. Example: You have 30BB, raise to 3BB, get called. Pot is 7BB, you have 27BB left = SPR of ~4. If you flop top pair, you're likely stacking off.</li>
+                            <li><strong>SPR 4-13 (Medium):</strong> You need two pair or better to commit your stack. Be cautious with one pair hands. This is the most common SPR in early tournament play.</li>
+                            <li><strong>SPR 14+ (High):</strong> Play for the nuts or strong draws. Don't commit without at least two pair+ or a huge draw. High SPR favors speculative hands (suited connectors, small pairs) because you're trying to flop monsters.</li>
+                        </ul>
+
+                        <h3>Post-Flop: Continuation Betting</h3>
+                        <p><strong>C-bet frequency:</strong> On favorable boards (dry, high cards), c-bet 60-70% of the time when you were the pre-flop raiser. On wet, coordinated boards (8♥9♥T♣), check more often—your opponents hit these boards more frequently.</p>
+
+                        <p><strong>Sizing:</strong> Standard c-bet is 50-60% of pot. Don't min-bet (looks weak) or overbet (wastes chips when you get folds). Size up on wet boards, size down on dry boards when you want calls with worse hands.</p>
+
+                        <h3>3-Betting Strategy</h3>
+                        <p>Don't be passive against aggressive players. <strong>3-bet with value</strong> (JJ+, AK) and occasionally <strong>3-bet light as a bluff</strong> (A5s, K9s, suited connectors) against players who open frequently. A good 3-bet size is 3x their raise (if they raise to 3BB, you 3-bet to 9BB).</p>
+
+                        <p><strong>When to 4-bet or fold:</strong> If you 3-bet and get 4-bet, you're facing serious strength. Fold everything except QQ+, AK unless you have a strong read. Don't be a hero with JJ or AQ—those are folds to 4-bets.</p>
+
+                        <h3>Key Numbers to Remember</h3>
+                        <ul>
+                            <li><strong>11.8%:</strong> Chance of flopping a set with a pocket pair. You need ~8:1 implied odds to profitably setmine.</li>
+                            <li><strong>~33%:</strong> Equity of a flush draw (9 outs) on the flop. You're a 2:1 underdog but should continue if getting proper odds.</li>
+                            <li><strong>50%:</strong> Rough equity of overcards (AK) vs a pair (88). You're flipping—don't go broke with AK unless you're the aggressor or short-stacked.</li>
+                        </ul>
+
+                        <h3>Avoid the Early Bustout</h3>
+                        <p>It's tempting to gamble early, but remember: <strong>you can't win the tournament in the first level, but you can lose it.</strong> Avoid marginal all-in situations with hands like AJ or middle pairs (77-99) unless you're the aggressor or have a strong read. If you're calling off 100BB, you better have QQ+ or AK in a great spot.</p>
+
+                        <h3>The Rebuy Question</h3>
+                        <p>Rebuys are part of modern tournament poker, but they can encourage reckless play. Set a personal policy—<strong>one rebuy max, or none at all</strong>. If you bust, you bust. This discipline prevents chasing losses and keeps your bankroll healthy. Don't let the rebuy button become a crutch for poor decisions. If you rebuy, reset mentally—don't try to immediately get even.</p>
+
+                        <div class="checklist">
+                            <h4>Quick Checklist:</h4>
+                            <ul>
+                                <li>Play tight early position, aggressive late position (40-50% from BTN)</li>
+                                <li>Understand SPR—high SPR = play for nuts, low SPR = commit with top pair+</li>
+                                <li>C-bet 60-70% on dry boards, check more on wet boards</li>
+                                <li>3-bet for value and occasionally as a bluff vs aggressive openers</li>
+                                <li>Avoid marginal all-ins—don't spew 100BB with AJ or 99</li>
+                                <li>Stick to your rebuy policy (1 max or zero) and reset if you rebuy</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stage 2: Pre-Bubble -->
+            <div class="stage-item">
+                <div class="stage-header" onclick="toggleContent(this)">
+                    <div>
+                        <span class="stage-number">2</span>
+                        <span class="stage-title">Pre-Bubble (Registration Closes to Money)</span>
+                    </div>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="stage-content">
+                    <div class="content-inner">
+                        <p>The pre-bubble stage is where <strong>Independent Chip Model (ICM) pressure begins to dominate</strong>. Once registration closes, the player pool is set, and as you approach the money, every decision carries more weight. Your stack size relative to the blinds and the average stack becomes critical. This is where disciplined players separate themselves from the field.</p>
+
+                        <h3>Stack Size Categories (Critical)</h3>
+                        <p><strong>Deep Stack (60+ BB):</strong> You have the luxury of waiting for premium spots and can apply pressure to medium/short stacks who are playing scared. You can profitably 3-bet light against players trying to ladder up. Don't get impatient—your chips are your weapon later.</p>
+
+                        <p><strong>Medium Stack (30-60 BB):</strong> The danger zone. Too big to shove, too small to safely see lots of flops. Focus on <strong>stealing blinds from late position</strong> (CO, BTN) with a wider range (any pair, broadway cards, suited Ax). Avoid marginal all-in situations unless you're the aggressor. If you're getting 3-bet, often fold unless you have a premium hand.</p>
+
+                        <p><strong>Short Stack (15-30 BB):</strong> You're approaching push/fold territory but still have <strong>fold equity</strong>. This is where pre-flop aggression matters most. Open-shove from late position with a wider range: any pair, Ax suited, KQ+, suited connectors 89s+. Don't limp or min-raise—commit or fold. Your goal is to accumulate blinds/antes without showdown.</p>
+
+                        <p><strong>Critical Stack (10-15 BB):</strong> Pure push/fold mode. You cannot afford to open-fold anymore. Shove any pair, any Ace, any two broadway cards from late position. From early/middle position, tighten to 77+, AJ+, KQ. <strong>Key number: 10BB is the critical threshold</strong>—below this, you're in survival mode and need to find a spot soon.</p>
+
+                        <p><strong>Desperation (sub-10 BB):</strong> You MUST find a hand. Expand your shoving range: any Ace, any pair, any King, suited connectors, even Q9o+ from the button. You're looking for fold equity + any equity when called. Don't wait for premium hands—they won't come in time.</p>
+
+                        <h3>ICM Pressure: Big Stacks vs. Short Stacks</h3>
+                        <p>ICM means that chips lost are worth more than chips gained. If you're a <strong>short stack</strong>, every other player busting is a pay jump for you—so you should tighten up and let others battle. If you're a <strong>big stack</strong>, you can bully medium stacks who are terrified of busting before the money. Attack their blinds relentlessly.</p>
+
+                        <p><strong>Medium stacks have the worst spot:</strong> They can't bully anyone, and they're vulnerable to big stacks. Play tight-aggressive: only enter pots with strong hands or position, and don't be a hero calling shoves without premiums (99+, AQ+).</p>
+
+                        <h3>Bubble Math to Remember</h3>
+                        <ul>
+                            <li><strong>15-20% of the field cashes</strong> (typical). If 100 players started and 15 get paid, when you're down to 20 players, the bubble is REAL.</li>
+                            <li><strong>Shoving 15BB with AJo from CO:</strong> ~45% equity vs a typical calling range (pairs, AK, AQ). You need ~35% fold equity to make it +EV. Late position + scared opponents = profitable shove.</li>
+                            <li><strong>Calling a shove with 22:</strong> ~50% vs two overcards, ~80% vs Ace-high. If you're getting 2:1 pot odds (need 33% equity), you're ahead against most shoving ranges except bigger pairs.</li>
+                        </ul>
+
+                        <h3>Common Pre-Bubble Mistakes</h3>
+                        <ul>
+                            <li><strong>Waiting too long with a short stack:</strong> Don't blind down to 5BB hoping for AA. Shove with the first reasonable hand in position.</li>
+                            <li><strong>Calling shoves with marginal hands:</strong> Unless you're getting crazy odds or have a premium, fold AJ/KQ to shoves. Let others bust each other.</li>
+                            <li><strong>Not stealing enough from the button:</strong> If it folds to you on the button with 20BB+, you should be opening 40-50% of hands. Blinds are scared money.</li>
+                            <li><strong>Open-limping:</strong> Stop limping. It screams weakness and invites aggression. Raise or fold.</li>
+                        </ul>
+
+                        <h3>Table Dynamics: Who's Scared?</h3>
+                        <p>Pay attention to who's tightening up. Players with 20-40BB who haven't played a hand in 2 orbits? They're waiting for the bubble to burst. Attack their blinds. Players shoving every orbit? They're desperate—call them lighter if you have 25BB+ and a decent hand (88+, AQ+).</p>
+
+                        <div class="checklist">
+                            <h4>Quick Checklist:</h4>
+                            <ul>
+                                <li>Identify your stack category and adjust strategy accordingly</li>
+                                <li>Big stack? Bully the medium stacks. Short stack? Tighten and let others bust.</li>
+                                <li>Below 15BB? Switch to push/fold mode immediately.</li>
+                                <li>Steal aggressively from late position (CO/BTN)</li>
+                                <li>Avoid marginal all-in calls—let scared money make mistakes</li>
+                                <li>Don't wait for premium hands with <10BB—find a spot NOW</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stage 3: Post-Bubble -->
+            <div class="stage-item">
+                <div class="stage-header" onclick="toggleContent(this)">
+                    <div>
+                        <span class="stage-number">3</span>
+                        <span class="stage-title">Post-Bubble (In the Money)</span>
+                    </div>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="stage-content">
+                    <div class="content-inner">
+                        <p>You've made the money—congratulations! But now what? The bubble has burst, and the collective sigh of relief is palpable. Some players will tighten up to ladder up, while others will open up and gamble. This stage is about <strong>knowing when to take risks and when to protect your stack</strong>. The key question: Are you playing to ladder or playing to win?</p>
+
+                        <h3>Ladder vs. Accumulate: The Core Decision</h3>
+                        <p><strong>Laddering up</strong> means playing conservatively to let others bust so you move up the payout ladder. This makes sense if:</p>
+                        <ul>
+                            <li>You have a <strong>very short stack</strong> (sub-10BB) and each bustout is a meaningful pay jump</li>
+                            <li>There are <strong>multiple ultra-short stacks</strong> at other tables who will bust soon</li>
+                            <li>The next pay jump is <strong>significant relative to your buy-in</strong> (e.g., min-cash is $200, next jump is $350)</li>
+                        </ul>
+
+                        <p><strong>Accumulating</strong> means playing aggressively to build a stack for a deep run. This makes sense if:</p>
+                        <ul>
+                            <li>You have a <strong>medium-to-big stack</strong> and can bully without risking your tournament life</li>
+                            <li>Pay jumps are small relative to the top prizes (min-cash is $200, but 1st is $5,000)</li>
+                            <li>You're here to <strong>win, not just cash</strong></li>
+                        </ul>
+
+                        <p><strong>Reality check:</strong> Most of the money is at the top. If you ladder from $200 to $300, you made $100. But 1st place might be $5,000. Don't play scared—play to win.</p>
+
+                        <h3>ICM Still Matters (But Less)</h3>
+                        <p>Post-bubble, ICM pressure decreases slightly but doesn't disappear. Every bust still moves you up, but the <strong>pay jumps get bigger as you get deeper</strong>. At the final 2-3 tables, each bust might mean an extra $50-$100. This is where stack size relative to the field becomes critical.</p>
+
+                        <p><strong>If you're short (sub-20BB):</strong> You need to find spots to accumulate. Don't wait—shove wider from late position and steal blinds. Every fold you see is a lost opportunity. Look for players who are laddering and attack their blinds.</p>
+
+                        <p><strong>If you're medium (20-50BB):</strong> This is a tough spot. You can't bully, and you're vulnerable to big stacks. Play solid poker—open strong hands, steal blinds in position, and avoid marginal spots against big stacks. Only call all-ins with premium hands (99+, AK).</p>
+
+                        <p><strong>If you're big (50+ BB):</strong> You can apply pressure. Attack medium stacks who are trying to ladder. 3-bet them liberally, steal their blinds, and force them to make tough decisions. You can afford to lose some chips—they can't.</p>
+
+                        <h3>Short Stack Push/Fold Math</h3>
+                        <p>With 10-15BB, you're still in push/fold mode. Here are key shoving ranges:</p>
+                        <ul>
+                            <li><strong>From the button (vs 2 players):</strong> Shove any pair, any Ace, any King, Q9s+, QJo+. You need ~40% fold equity to be +EV.</li>
+                            <li><strong>From the cutoff (vs 3 players):</strong> Tighten slightly—any pair, A2s+, A9o+, KTs+, KQo. You need ~50% fold equity.</li>
+                            <li><strong>From middle position (vs 5+ players):</strong> Now it's premium hands only—66+, A9s+, AJo+, KQs. Multiple players behind means you're likely getting called.</li>
+                        </ul>
+
+                        <p><strong>When to call a shove:</strong> If you have 25BB+ and a player shoves 12BB, you need ~35% equity to call profitably (pot odds). Call with 77+, ATs+, AJo+, KQs. Don't hero call with A5o or K9s—those are folds.</p>
+
+                        <h3>Reading the Table Post-Bubble</h3>
+                        <p>Pay attention to who's playing scared and who's playing aggressive:</p>
+                        <ul>
+                            <li><strong>Scared players:</strong> They fold too much, especially from the blinds. Attack them relentlessly. If they haven't played a hand since the bubble burst, steal their blinds every orbit.</li>
+                            <li><strong>Aggressive players:</strong> They're opening wide and 3-betting light. Don't fight fire with fire unless you have a hand. Let them battle with other aggressive players and wait for a premium to trap them.</li>
+                        </ul>
+
+                        <h3>Pay Jump Awareness</h3>
+                        <p>Know the payout structure. If there are 15 spots paid and you're in 12th, look at the difference between 12th and 9th (next pay jump). Is it $50? $200? If it's small, don't play scared. If it's significant and you're short-stacked, tighten up for one or two bustouts.</p>
+
+                        <p><strong>Example:</strong> 10 players left, you're 8th in chips. 10th gets $300, 7th gets $450, 4th gets $800, 1st gets $4,000. The jump from 10th to 7th is $150—not life-changing. Play for the win. Don't fold your way from $300 to $450 when you could be playing for $4,000.</p>
+
+                        <h3>Common Post-Bubble Mistakes</h3>
+                        <ul>
+                            <li><strong>Playing too scared:</strong> You didn't come this far to fold your way to a min-cash. Take calculated risks.</li>
+                            <li><strong>Not adjusting to stack sizes:</strong> If you have 30BB and the average is 25BB, you're in a strong position. Don't play like a short stack.</li>
+                            <li><strong>Ignoring table dynamics:</strong> If your table is playing tight and another table is wild, you can steal blinds all day. If your table is aggressive, tighten up and wait for hands.</li>
+                            <li><strong>Calling shoves too light:</strong> AQ and 99 are folds to shoves unless you're getting amazing odds. Save your chips for better spots.</li>
+                        </ul>
+
+                        <div class="checklist">
+                            <h4>Quick Checklist:</h4>
+                            <ul>
+                                <li>Decide: Am I laddering or accumulating? (Most of the money is at the top—play to win)</li>
+                                <li>Short stack (sub-20BB)? Shove wider from late position. Don't wait.</li>
+                                <li>Big stack? Bully medium stacks who are playing scared.</li>
+                                <li>Know the payout structure—are pay jumps worth tightening up?</li>
+                                <li>Attack scared players, avoid battles with aggressive players unless you have a hand</li>
+                                <li>Don't call shoves with marginal hands (AQ, 99 are often folds)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stage 4: Final Table -->
+            <div class="stage-item">
+                <div class="stage-header" onclick="toggleContent(this)">
+                    <div>
+                        <span class="stage-number">4</span>
+                        <span class="stage-title">Final Table (and Approach)</span>
+                    </div>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="stage-content">
+                    <div class="content-inner">
+                        <div class="placeholder">Content coming soon...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stage 5: Mental Game & Break Routine -->
+            <div class="stage-item">
+                <div class="stage-header" onclick="toggleContent(this)">
+                    <div>
+                        <span class="stage-number">5</span>
+                        <span class="stage-title">Mental Game & Break Routine</span>
+                    </div>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="stage-content">
+                    <div class="content-inner">
+                        <p>Tournament poker is a mental marathon. You'll face bad beats, coolers, and frustrating spots. The difference between a winning player and a losing player often isn't skill—it's <strong>mental discipline</strong>. Your 15-minute break is a critical reset opportunity. Use it wisely.</p>
+
+                        <h3>The Break Routine (Physical Reset)</h3>
+                        <p><strong>Step 1: Move your body.</strong> Get up, walk around, stretch. Blood flow to your brain improves decision-making. Do 10 squats, walk outside if possible, get fresh air. Physical movement breaks the mental loop of the last bad beat or tough spot.</p>
+
+                        <p><strong>Step 2: Hydrate and eat light.</strong> Dehydration kills focus. Drink water. If you're eating, go light—protein or fruit, not heavy carbs or sugar that will crash you. Avoid alcohol until after the tournament. Caffeine is fine if you're dragging, but don't overdo it.</p>
+
+                        <p><strong>Step 3: Disconnect from results.</strong> Don't check your phone for updates on your stack ranking or the bubble. Don't think about the bad beat 2 orbits ago. The cards don't care. Reset to neutral.</p>
+
+                        <h3>Tilt Detection: Know the Warning Signs</h3>
+                        <p>Tilt doesn't announce itself. It creeps in. Here are the warning signs:</p>
+                        <ul>
+                            <li><strong>You're playing hands you normally fold:</strong> Q8o from UTG? That's tilt. If you're straying from your ranges, reset.</li>
+                            <li><strong>You're obsessing over a bad beat:</strong> If you're replaying the same hand in your head, you're not focused on the current hand. Let it go.</li>
+                            <li><strong>You're calling light to "catch them bluffing":</strong> Revenge calls are -EV. If you're calling with K-high because "I know he's bluffing," you're tilted.</li>
+                            <li><strong>You're making big bets out of frustration:</strong> Over-betting the pot because you're "tired of getting pushed around" is tilt. Bet sizing should be strategic, not emotional.</li>
+                            <li><strong>You're rushing decisions:</strong> If you're snap-calling or snap-folding without thinking, slow down. Take your time.</li>
+                        </ul>
+
+                        <p><strong>Tilt fix during breaks:</strong> If you catch yourself tilting, acknowledge it. Say out loud (or in your head): "I'm tilted. That's okay. Next hand is a clean slate." Then use the break to reset physically and mentally.</p>
+
+                        <h3>Variance Acceptance: The Most Important Mindset</h3>
+                        <p>You will lose with AA. You will win with 72o. That's poker. <strong>Variance is not your enemy—it's the reason bad players keep playing.</strong> If the best hand always won, there would be no fish. Embrace variance as part of the game.</p>
+
+                        <p><strong>Key mindset shift:</strong> Focus on decisions, not results. Did you make the +EV play? That's all that matters. If you shove AK and lose to KK, that's not a mistake—that's variance. If you fold AK because you were scared, that's a mistake.</p>
+
+                        <p><strong>Long-term thinking:</strong> You're not playing this one tournament—you're playing 100 tournaments over the next year. One bad beat tonight is noise. Your edge reveals itself over volume.</p>
+
+                        <h3>Mental Game Questions to Ask on Break</h3>
+                        <p>Use your break to self-assess. Ask yourself:</p>
+                        <ul>
+                            <li><strong>"Am I playing my ranges or deviating?"</strong> If you're straying, tighten up and get back to fundamentals.</li>
+                            <li><strong>"Am I focused on the current hand or replaying old hands?"</strong> If you're in the past, reset to the present.</li>
+                            <li><strong>"Am I making decisions based on logic or emotion?"</strong> If it's emotion, slow down and breathe.</li>
+                            <li><strong>"What's my stack situation and what's my plan?"</strong> Short stack? You need to find a spot soon. Big stack? Stay patient and pick your spots.</li>
+                            <li><strong>"How am I feeling physically?"</strong> Tired? Hungry? Frustrated? Address it now before it affects your play.</li>
+                        </ul>
+
+                        <h3>Breathing Technique: The 4-7-8 Method</h3>
+                        <p>If you're feeling stressed or tilted, use this quick breathing reset (takes 1 minute):</p>
+                        <ul>
+                            <li><strong>Inhale</strong> through your nose for 4 seconds</li>
+                            <li><strong>Hold</strong> for 7 seconds</li>
+                            <li><strong>Exhale</strong> through your mouth for 8 seconds</li>
+                            <li>Repeat 3-4 times</li>
+                        </ul>
+                        <p>This activates your parasympathetic nervous system and calms your stress response. It's a tournament superpower.</p>
+
+                        <h3>Positive Self-Talk: Reframe Bad Beats</h3>
+                        <p>Instead of: <strong>"I can't believe he sucked out on me. I always lose these hands."</strong></p>
+                        <p>Try: <strong>"I got my chips in good. That's all I can control. He's going to lose that flip 7 out of 10 times. My edge is real."</strong></p>
+
+                        <p>Language matters. Negative self-talk reinforces tilt. Positive self-talk reinforces discipline.</p>
+
+                        <h3>The Power of a Clean Slate</h3>
+                        <p>Every hand is independent. You can lose 5 flips in a row and still have the same equity on the 6th flip. <strong>The cards don't know what happened before.</strong> Treat every hand as a fresh decision. No baggage. No history. Just math and logic.</p>
+
+                        <h3>When to Walk Away</h3>
+                        <p>If you're deep in a tournament and massively tilted, sometimes the best play is to <strong>deliberately tighten up</strong> for 1-2 orbits. Only play premium hands. Let the tilt subside. Don't make a hero play just because you're frustrated. Patience is profitable.</p>
+
+                        <p>If you bust, don't immediately fire another tournament. Take 30 minutes. Process the session. Learn from mistakes. Then decide if you're in a good headspace to play again. Chasing losses is how bankrolls die.</p>
+
+                        <div class="checklist">
+                            <h4>Quick Break Checklist:</h4>
+                            <ul>
+                                <li>Move your body—walk, stretch, get blood flowing</li>
+                                <li>Hydrate and eat something light (protein or fruit)</li>
+                                <li>Check for tilt warning signs (playing weak hands, obsessing over bad beats)</li>
+                                <li>Ask: "Am I focused on decisions or results?" (Focus on decisions)</li>
+                                <li>Use 4-7-8 breathing if stressed (1 minute reset)</li>
+                                <li>Remind yourself: "Every hand is a clean slate. The cards don't remember."</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>🎯 Run it once. Play your best game. ♣️♦️</p>
+        </footer>
+    </div>
+
+    <script>
+        function toggleContent(header) {
+            const content = header.nextElementSibling;
+            const isActive = header.classList.contains('active');
+            
+            // Close all other items
+            document.querySelectorAll('.stage-header').forEach(h => {
+                h.classList.remove('active');
+                h.nextElementSibling.classList.remove('active');
+            });
+            
+            // Toggle current item
+            if (!isActive) {
+                header.classList.add('active');
+                content.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
