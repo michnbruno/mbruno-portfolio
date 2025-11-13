@@ -3,290 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects - Michael Bruno</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.4;
-            color: #333;
-            background: #f5f5f5;
-        }
-
-        .header {
-            background: white;
-            border-bottom: 2px solid #0066cc;
-            padding: 20px 0;
-        }
-
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .site-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #1a1a1a;
-        }
-
-        .nav {
-            display: flex;
-            gap: 30px;
-        }
-
-        .nav a {
-            color: #555;
-            text-decoration: none;
-            font-size: 0.95rem;
-            padding: 8px 0;
-            border-bottom: 2px solid transparent;
-            transition: all 0.2s;
-        }
-
-        .nav a:hover,
-        .nav a.active {
-            color: #0066cc;
-            border-bottom-color: #0066cc;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 15px auto;
-            padding: 0 30px;
-        }
-
-        .page-header {
-            background: white;
-            padding: 30px;
-            margin-bottom: 25px;
-            border: 1px solid #ddd;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-
-        .page-header-content {
-            flex: 1;
-        }
-
-        .back-link {
-            color: #0066cc;
-            text-decoration: none;
-            font-size: 0.9rem;
-            padding: 8px 16px;
-            border: 1px solid #0066cc;
-            border-radius: 4px;
-            transition: all 0.2s;
-            white-space: nowrap;
-            margin-left: 20px;
-        }
-
-        .back-link:hover {
-            background: #0066cc;
-            color: white;
-        }
-
-        .page-header h1 {
-            font-size: 1.6rem;
-            font-weight: 600;
-            color: #1a1a1a;
-            margin-bottom: 12px;
-        }
-
-        .page-header p {
-            font-size: 0.9rem;
-            color: #555;
-            line-height: 1.5;
-        }
-
-        .projects-section {
-            background: white;
-            padding: 30px;
-            border: 1px solid #ddd;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-        }
-
-        .project-card {
-            border: 1px solid #ddd;
-            padding: 20px;
-            transition: all 0.2s;
-            background: #fafafa;
-        }
-
-        .project-card:hover {
-            border-color: #0066cc;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .project-card h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #1a1a1a;
-            margin-bottom: 8px;
-        }
-
-        .project-card .tech {
-            font-size: 0.8rem;
-            color: #666;
-            margin-bottom: 10px;
-            font-style: italic;
-        }
-
-        .project-card .status {
-            display: inline-block;
-            padding: 3px 8px;
-            font-size: 0.75rem;
-            margin-bottom: 10px;
-            border-radius: 3px;
-        }
-
-        .status-complete {
-            background: #e8f5e9;
-            color: #2e7d32;
-        }
-
-        .status-progress {
-            background: #fff3e0;
-            color: #e65100;
-        }
-
-        .project-card p {
-            font-size: 0.85rem;
-            color: #555;
-            line-height: 1.4;
-            margin-bottom: 12px;
-        }
-
-        .project-card a {
-            display: inline-block;
-            color: #0066cc;
-            text-decoration: none;
-            font-size: 0.85rem;
-            border-bottom: 1px solid transparent;
-            transition: border-color 0.2s;
-        }
-
-        .project-card a:hover {
-            border-bottom-color: #0066cc;
-        }
-
-        .footer {
-            max-width: 1200px;
-            margin: 25px auto 15px;
-            padding: 15px 30px;
-            text-align: center;
-            color: #666;
-            font-size: 0.85rem;
-        }
-
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .nav {
-                flex-wrap: wrap;
-                gap: 15px;
-            }
-
-            .page-header {
-                padding: 25px;
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .back-link {
-                margin-left: 0;
-                align-self: flex-start;
-            }
-
-            .projects-section {
-                padding: 25px;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <title>Michael Bruno - Software Architect & Developer</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header class="header">
-        <div class="header-content">
-            <div class="site-title">Michael Bruno - Portfolio Projects</div>
-            <nav class="nav">
-                <!-- <a href="index.html">Home</a> -->
-                <a href="index.html" class="active">Projects</a>
-                <a href="about.html">About</a>
-            </nav>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Michael Bruno</h1>
+                <h2>Software Architect & Full-Stack Developer</h2>
+                <p class="hero-tagline">
+                    Building modern, scalable applications with .NET, Azure, and AI-assisted development workflows
+                </p>
+                <div class="hero-links">
+                    <a href="https://github.com/your-github" class="hero-link" target="_blank">
+                        <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                        </svg>
+                        GitHub
+                    </a>
+                    <a href="https://linkedin.com/in/your-profile" class="hero-link" target="_blank">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                        LinkedIn
+                    </a>
+                </div>
+            </div>
         </div>
-    </header>
+    </section>
 
-    <div class="container">
-        <!-- <section class="page-header">
-            <div class="page-header-content">
-                <h1>Portfolio Projects</h1>
-                <p>Current technical work demonstrating modern development practices, cloud architecture patterns, and strategic technology evaluation. Each project includes detailed documentation of architectural decisions and implementation approaches.</p>
-            </div>
-            <a href="index.html" class="back-link">← Back to Home</a>
-        </section> -->
+    <!-- Main Content -->
+    <section class="main-content">
+        <div class="container">
+            <div class="content-grid">
+                <!-- Technical Projects - Left Column (Primary) -->
+                <div class="technical-section">
+                    <div class="section-header">
+                        <h2>Technical Projects</h2>
+                        <p>Architecture, development, and infrastructure implementations</p>
+                    </div>
 
-        <section class="projects-section">
-            <div class="projects-grid">
-        
-
-                <div class="project-card">
-                    <span class="status status-complete">Complete</span>
-                    <h3>Event-Driven Architecture</h3>
-                    <div class="tech">Azure Functions, Storage Queues, Bicep IaC</div>
-                    <p>Production-ready serverless order processing system demonstrating event-driven patterns with comprehensive Infrastructure as Code deployment. Includes architectural decision framework for Azure messaging services.</p>
-                    <a href="event-architecture.html">View Project →</a>
-                </div>
-
-                <div class="project-card">
-                    <span class="status status-progress">In Progress</span>
-                    <h3>Generic CRUD API</h3>
-                    <div class="tech">.NET 8, EF Core, Reflection, React</div>
-                    <p>Flexible API architecture using reflection-based repository patterns that adapts to multiple entity types with single implementation. Integrated with modern React SPA demonstrating full-stack capabilities.</p>
-                    <a href="#">Coming Soon</a>
-                </div>
-
-                <div class="project-card">
-                    <span class="status status-complete">Complete</span>
-                    <h3>SPA Framework Comparison</h3>
-                    <div class="tech">React, Angular, Vue.js, TypeScript</div>
-                    <p>Comparative analysis of modern frontend frameworks using identical backend API. Demonstrates framework trade-offs, architectural patterns, and strategic selection criteria for technology decisions.</p>
-                    <a href="ai-assisted-spas.html">View Project →</a>
-                </div>
+                    <div class="project-cards">
+                        <!-- Event-Driven Architecture -->
                         <div class="project-card">
-                    <span class="status status-complete">Complete</span>
-                    <h3>AI Tools Assessment</h3>
-                    <div class="tech">.NET, React, Azure, AI Collaboration</div>
-                    <p>Comprehensive evaluation of AI-assisted development across backend, frontend, and architecture work. Documents real productivity gains and strategic implementation approaches based on hands-on experience.</p>
-                    <a href="ai-tools-assessment.html">View Project →</a>
+                            <div class="project-status complete">Complete</div>
+                            <h3>Event-Driven Architecture</h3>
+                            <div class="project-tags">
+                                <span class="tag">Azure Functions</span>
+                                <span class="tag">Storage Queues</span>
+                                <span class="tag">Bicep IaC</span>
+                            </div>
+                            <p>
+                                Production-ready serverless order processing system demonstrating event-driven patterns 
+                                with comprehensive Infrastructure as Code deployment. Includes architectural decision 
+                                framework for Azure messaging services.
+                            </p>
+                            <div class="project-links">
+                                <a href="#" class="project-link">View Project →</a>
+                                <a href="https://github.com/your-repo" class="project-link secondary">GitHub</a>
+                            </div>
+                        </div>
+
+                        <!-- Generic CRUD API -->
+                        <div class="project-card">
+                            <div class="project-status in-progress">In Progress</div>
+                            <h3>Generic CRUD API</h3>
+                            <div class="project-tags">
+                                <span class="tag">.NET 8</span>
+                                <span class="tag">EF Core</span>
+                                <span class="tag">Reflection</span>
+                                <span class="tag">React</span>
+                            </div>
+                            <p>
+                                Flexible API architecture using reflection-based repository patterns that adapts to 
+                                multiple entity types with single implementation. Integrated with modern React SPA 
+                                demonstrating full-stack capabilities.
+                            </p>
+                            <div class="project-links">
+                                <a href="#" class="project-link disabled">Coming Soon</a>
+                            </div>
+                        </div>
+
+                        <!-- SPA Framework Comparison -->
+                        <div class="project-card">
+                            <div class="project-status complete">Complete</div>
+                            <h3>SPA Framework Comparison</h3>
+                            <div class="project-tags">
+                                <span class="tag">React</span>
+                                <span class="tag">Angular</span>
+                                <span class="tag">Vue.js</span>
+                                <span class="tag">TypeScript</span>
+                            </div>
+                            <p>
+                                Comparative analysis of modern frontend frameworks using identical backend API. 
+                                Demonstrates framework trade-offs, architectural patterns, and strategic selection 
+                                criteria for technology decisions.
+                            </p>
+                            <div class="project-links">
+                                <a href="#" class="project-link">View Project →</a>
+                                <a href="https://github.com/your-repo" class="project-link secondary">GitHub</a>
+                            </div>
+                        </div>
+
+                        <!-- AI Tools Assessment -->
+                        <div class="project-card">
+                            <div class="project-status complete">Complete</div>
+                            <h3>AI Tools Assessment</h3>
+                            <div class="project-tags">
+                                <span class="tag">.NET</span>
+                                <span class="tag">React</span>
+                                <span class="tag">Azure</span>
+                                <span class="tag">AI Collaboration</span>
+                            </div>
+                            <p>
+                                Comprehensive evaluation of AI-assisted development across backend, frontend, and 
+                                architecture work. Documents real productivity gains and strategic implementation 
+                                approaches based on hands-on experience.
+                            </p>
+                            <div class="project-links">
+                                <a href="#" class="project-link">View Project →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Creative Projects - Right Column (Secondary) -->
+                <div class="creative-section">
+                    <div class="section-header">
+                        <h2>The Lighter Side</h2>
+                        <p>Personal interests and creative projects</p>
+                    </div>
+
+                    <div class="creative-cards">
+                        <!-- Juggling -->
+                        <a href="https://juggle.mbruno-projects.com" class="creative-card" target="_blank">
+                            <div class="creative-icon">🤹</div>
+                            <h4>World Gone Mad Juggling</h4>
+                            <p>Elite-level juggling coaching and resources. 7-ball toss and bounce expertise.</p>
+                        </a>
+
+                        <!-- Poker -->
+                        <a href="https://poker.mbruno-projects.com" class="creative-card" target="_blank">
+                            <div class="creative-icon">♠️</div>
+                            <h4>Tournament Poker Strategy</h4>
+                            <p>Break-time reference for stage-based decision making in tournament play.</p>
+                        </a>
+
+                        <!-- Magic -->
+                         <div style="display: none !important;">
+                        <a href="https://mostly-magic.com" class="creative-card" target="_blank">
+                            <div class="creative-icon">🎩</div>
+                            <h4>Mostly Magic</h4>
+                            <p>Professional magic performance and entertainment services.</p>
+                        </a>
+                        </div>
+                    </div>
+
+                    <!-- Built With Section -->
+                    <div class="built-with">
+                        <h4>Built With</h4>
+                        <div class="tool-tags">
+                            <span class="tool-tag">Claude AI</span>
+                            <span class="tool-tag">Cursor</span>
+                            <span class="tool-tag">.NET 8</span>
+                            <span class="tool-tag">Azure</span>
+                            <span class="tool-tag">React</span>
+                            <span class="tool-tag">Angular</span>
+                            <span class="tool-tag">Vue.js</span>
+                        </div>
+                        <p class="built-with-note">
+                            Leveraging AI-assisted development to accelerate delivery while maintaining 
+                            architectural rigor and code quality.
+                        </p>
+                    </div>
                 </div>
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
 
+    <!-- Footer -->
     <footer class="footer">
-        <p>Developed by Michael Bruno with AI-assisted development tools</p>
+        <div class="container">
+            <p>&copy; 2025 Michael Bruno. Built with AI-assisted development tools.</p>
+        </div>
     </footer>
 </body>
 </html>
