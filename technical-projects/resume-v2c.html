@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Michael Bruno - Resume</title>
+    <style>
+        @media print {
+            body { margin: 0; }
+            .page-break { page-break-after: always; }
+            .page-2 { margin-top: 40px; }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.4;
+            color: #1a1a1a;
+            background: white;
+            padding: 30px 40px;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        .header {
+            border-bottom: 3px solid #0066cc;
+            padding-bottom: 12px;
+            margin-bottom: 18px;
+        }
+
+        .name {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .contact {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .contact a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        .section {
+            margin-bottom: 18px;
+        }
+
+        .section-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+
+        .summary {
+            font-size: 0.9rem;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px 18px;
+            font-size: 0.85rem;
+        }
+
+        .skills-grid-narrow {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px 18px;
+            font-size: 0.85rem;
+        }
+
+        .skill-category {
+            color: #333;
+        }
+
+        .skill-category strong {
+            color: #0066cc;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .job {
+            margin-bottom: 16px;
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 3px;
+        }
+
+        .job-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .job-dates {
+            font-size: 0.8rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        .job-company {
+            font-size: 0.85rem;
+            color: #555;
+            margin-bottom: 6px;
+        }
+
+        .job-bullets {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .job-bullets li {
+            font-size: 0.85rem;
+            color: #333;
+            line-height: 1.4;
+            margin-bottom: 5px;
+            padding-left: 15px;
+            position: relative;
+        }
+
+        .job-bullets li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #0066cc;
+            font-weight: bold;
+        }
+
+        .content-text {
+            font-size: 0.85rem;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .content-text a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        @media print {
+            .pagebreak {
+                clear: both;
+                min-height: 1px;
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="name">Michael Bruno</div>
+        <div class="contact">
+            Columbus, Ohio | 
+                 <a href="mailto:MichnBruno@gmail.com">MichnBruno@gmail.com</a> | 
+            <a href="https://github.com/michnbruno">github.com/michnbruno</a> | 
+            <a href="https://www.linkedin.com/in/michnbruno">linkedin.com/in/michnbruno</a>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Professional Summary</div>
+        <div class="summary">
+            Senior Software Developer with 15+ years experience building enterprise and line of business applications. Experienced in cloud migrations/modernizations, integrations, and full-stack .NET/API/SPA development. Ability to work in both development and leadership roles.
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Development Skills</div>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <strong>Languages & Frameworks</strong>
+                C# (10+ yrs), .NET 8/Core and prior versions (10+ yrs), Entity Framework (10+ yrs), JavaScript/TypeScript (8+ yrs), Angular, React
+            </div>
+            <div class="skill-category">
+                <strong>Cloud & Infrastructure</strong>
+                Azure PaaS (10+ yrs), App Services/Static SPAs, Azure Functions, Container Apps, Bicep IaC, YAML/GitHub Pipelines, Azure DevOps
+            </div>
+            <div class="skill-category">
+                <strong>Database</strong>
+                SQL/T-SQL (10+ yrs), Azure SQL, SQL Server, Database Design, Performance Optimization
+            </div>
+        </div>
+    </div>
+
+    <!-- AI COMPETENCIES — v2a: reorganized into 3 honest, sequenced columns -->
+    <div class="section">
+        <div class="section-title">AI Competencies</div>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <strong>Azure AI Services (PaaS)</strong>
+                Document Intelligence (Form Recognition), Azure OpenAI (GPT-4o-mini), AI Vision (Image Analysis/OCR), Language Service (Sentiment, NER), Content Safety, Speech-to-Text
+            </div>
+            <div class="skill-category">
+                <strong>AI Solution Architecture</strong>
+                Azure AI Foundry (Platform Awareness), AI-Enabled Pipeline Design, Structured Data Extraction from Unstructured Sources, AI + .NET Hybrid Architecture
+            </div>
+            <div class="skill-category">
+                <strong>AI Integration & Implementation</strong>
+                Azure AI SDK / NuGet Integration, .NET Service Layer AI Patterns, Azure OpenAI Service Integration, AI Tool Evaluation (Claude, Copilot, Cursor)
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Technologies & Leadership</div>
+        <div class="skills-grid-narrow">
+            <div class="skill-category">
+                <strong>Architecture & Patterns</strong>
+                Microservices, RESTful APIs, Event-Driven / Serverless, Infrastructure as Code, Cloud Migrations
+            </div>
+            <div class="skill-category">
+                <strong>Integration & Security</strong>
+                JWT Auth, OAuth, CORS, Third-Party APIs, Authentication Systems
+            </div>
+            <div class="skill-category">
+                <strong>Leadership & Process</strong>
+                SAFe Agile, Architecture Design, Team Leadership, Technical Strategy, AI Enablement Advocacy
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Professional Experience</div>
+
+        <div class="job">
+            <div class="job-header">
+                <div class="job-title">Career Break / Professional Development</div>
+                <div class="job-dates">Nov 2024 – Present</div>
+            </div>
+            <ul class="job-bullets">
+                <li>Stepped away from full time professional work to focus on various personal projects and responsibilities</li>
+                <li>Assessing and upskilling with AI-assisted development tools (such as Claude, GitHub Copilot); furthering learning with modern architecture patterns including event-driven, serverless, and deployment workflows</li>
+            </ul>
+        </div>
+
+        <div class="job" style="page-break-before: always;">
+            <div class="job-header">
+                <div class="job-title">Development Lead / Senior Developer</div>
+                <div class="job-dates">Mar 2021 – Nov 2024</div>
+            </div>
+            <div class="job-company">Daugherty Business Solutions (Columbus, OH - Remote) & Lincare (Clearwater, FL - Remote)</div>
+            <ul class="job-bullets">
+                <li>Served as Dev Team Lead on modernization project converting Java APIs to Spring Boot and frontend to React; led separate Azure migration project for internal application (APIs, Angular SPA, database, authentication)</li>
+                <li>Maintained and extended legacy .NET applications during Azure migration; provided production support for critical document management system</li>
+            </ul>
+        </div>
+
+        <div class="job">
+            <div class="job-header">
+                <div class="job-title">Development Lead / Platform Adoption Leader</div>
+                <div class="job-dates">Jun 2016 – Mar 2021</div>
+            </div>
+            <div class="job-company">Magenic Consulting (Minneapolis, MN - Remote)</div>
+            <ul class="job-bullets">
+                <li>Dev Team Lead on two separate enterprise SAFe Agile projects for Fortune 500 clients migrating to Azure cloud</li>
+                <li>Built data-driven APIs/platform handling multiple schemas with Azure storage, ETL processing, and multi-party reporting for global accounting firm</li>
+                <li>Managed distributed onshore/offshore development and assisted with designing system integrations</li>
+                <li>Part of platform adoption team that performed solution architecture reviews, and facilitated communications with onboarding teams to accelerate productivity with platform</li>
+            </ul>
+        </div>
+
+        <div class="job">
+            <div class="job-header">
+                <div class="job-title">Senior Application Developer</div>
+                <div class="job-dates">Jan 2013 – Feb 2016</div>
+            </div>
+            <div class="job-company">LBrands/Victoria's Secret, Gannett Fleming, Contract Projects (Columbus, OH)</div>
+            <ul class="job-bullets">
+                <li>Worked on a .NET MVC inventory management system and a GPS-enabled .NET mobile/tablet incident management application for highway service vehicles</li>
+                <li>Upgraded legacy .NET application and revised data access patterns to optimize database performance</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Education</div>
+        <div class="content-text">
+            Bachelor of Science, Economics – University of Cincinnati (Cincinnati, OH)
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Earlier Professional Experience</div>
+        <ul class="job-bullets">
+            <li>Verizon (2012, 2009, 2000 / Tampa, FL) – Upgraded legacy VB applications to .NET and ASP; migrated Access databases to SQL Server</li>
+            <li>King Engineering Associates (2002-2008 / Tampa, FL) – Lead Programmer on 5-year custom billing system supporting multi-million dollar monthly revenue using ASP and SQL Server</li>
+            <li>Bank of America (2001-2002 / Tampa, FL) – Lead Programmer on ASP enterprise client satisfaction survey system</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Portfolio & Code Samples</div>
+        <div class="content-text">
+            <a href="https://mbruno-projects.com" target="_blank">mbruno-projects.com</a> – AI Enablement/Azure PaaS, Event-Driven Architecture, Generic CRUD API, SPA Framework Comparison<br>
+            <a href="https://github.com/michnbruno" target="_blank">github.com/michnbruno</a> – Azure deployments, CI/CD pipelines, authentication systems<br>
+             <a href="https://michn8.net" target="_blank">michn8.net</a> – Generic CRUD API, Angular SPA Personal Website<br>
+        </div>
+    </div>
+
+</body>
+</html>
